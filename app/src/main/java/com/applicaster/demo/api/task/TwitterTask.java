@@ -33,7 +33,7 @@ public class TwitterTask {
         api = ServiceGenerator.createService(TwitterAPI.class);
 
          /**
-         *Call the service
+         *Call the service, including Entities and based on most (Pupular Tweets, here we can put Recent or Mixed)
          */
 
         Call<Tweets> call = api.searchTweets(hashtag, String.valueOf(DEFAULT_COUNT), "true", "popular");
@@ -44,18 +44,30 @@ public class TwitterTask {
                 try {
                     switch (response.code()) {
                         case 401:
+                            /**
+                             *We can do some stuff
+                             */
                             callBack.onError(response.message(), response.code());
                             break;
 
                         case 200:
+                            /**
+                             *We return in callback the response of the API
+                             */
                             callBack.onResponse(response.body());
                             break;
 
                         case 500:
+                            /**
+                             *We can do some stuff
+                             */
                             callBack.onError(response.message(), response.code());
                             break;
 
                         default:
+                            /**
+                             *We can do some stuff
+                             */
                             callBack.onError(response.message(), response.code());
                             break;
                     }
@@ -66,6 +78,9 @@ public class TwitterTask {
 
             @Override
             public void onFailure(Call<Tweets> call, Throwable t) {
+                /**
+                 *We can do some stuff
+                 */
                 callBack.onError(t.toString(), 500);
             }
         });

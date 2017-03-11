@@ -23,3 +23,4 @@ Picasso, for handle image download.
 
 # APK
 You can copy the demo apk provided to your device directly to see how it work!.
+https://github.com/RafaelAmbruster/ApplicasterDemoApp/blob/master/app-demo.apk

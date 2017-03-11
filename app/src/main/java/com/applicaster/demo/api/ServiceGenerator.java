@@ -41,7 +41,12 @@ public class ServiceGenerator {
                 Request original = chain.request();
 
                 if (token == null) {
+
+                    /**
+                     * Always obtain a new token, following OAuth specification this can be enhance implementing an auto-refresh token
+                     **/
                     ResponseBody body = chain.proceed(getToken()).body();
+
                     try {
                         JSONObject jsonObject = new JSONObject(body.string());
                         token = "Bearer " + jsonObject.optString("access_token");
