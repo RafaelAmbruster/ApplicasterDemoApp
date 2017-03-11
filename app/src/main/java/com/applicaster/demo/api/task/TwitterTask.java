@@ -17,7 +17,8 @@ import retrofit2.Response;
 
 public class TwitterTask {
 
-    TwitterAPI api = null;
+    private TwitterAPI api = null;
+    private static int DEFAULT_COUNT = 10;
     public IResponseObject<Object> callBack;
 
     public TwitterTask(IResponseObject callBack) {
@@ -36,7 +37,7 @@ public class TwitterTask {
          *Call the service
          */
 
-        Call<Tweets> call = api.searchTweets(hashtag, BuildConfig.DEFAULT_COUNT, "true", "popular");
+        Call<Tweets> call = api.searchTweets(hashtag, String.valueOf(DEFAULT_COUNT), "true", "popular");
         call.enqueue(new Callback<Tweets>() {
             @Override
             public void onResponse(Call<Tweets> call, Response<Tweets> response) {

@@ -14,6 +14,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.applicaster.demo.R;
 import com.applicaster.demo.api.IResponseObject;
@@ -65,7 +66,8 @@ public class MainActivity extends AbstractActivity implements IResponseObject {
      * Init visual components
      */
 
-    private void Init() {
+    @Override
+    public void Init() {
 
         /**
          * Start the timer
@@ -88,7 +90,8 @@ public class MainActivity extends AbstractActivity implements IResponseObject {
      * Init the tweet adapter
      */
 
-    private void SetupAdapter() {
+    @Override
+    public void SetupAdapter() {
         statuses = new ArrayList<>();
         adapter = new TwitterItemAdapter(MainActivity.this, (position, v) -> {
 
@@ -96,23 +99,28 @@ public class MainActivity extends AbstractActivity implements IResponseObject {
              *If we are going to see the tweet detail, we implement this method
              *Tweet status = statuses.get(adapter.getPosition(position));
              *OpenDetail(status);
-            */
+             */
 
         });
         rv_content.setAdapter(adapter);
+    }
+
+    @Override
+    public void OpenDetail(Object object) {
+
     }
 
     /**
      * Helper method to communicate with the API
      */
 
-    private void CallApi(String search) {
-        query = search;
-        preference.setQuery(search);
+    @Override
+    public void CallData() {
+        preference.setQuery(query);
         statuses = new ArrayList<>();
         adapter.Clear();
         rl_progressbar.setVisibility(View.VISIBLE);
-        new TwitterTask(this).Search(search);
+        new TwitterTask(this).Search(query);
     }
 
     /**
@@ -136,12 +144,17 @@ public class MainActivity extends AbstractActivity implements IResponseObject {
         searchView.setQueryHint("Search..");
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
-            public boolean onQueryTextSubmit(String query) {
-                if (!TextUtils.isEmpty(query)) {
-                    /*Call the middleware*/
+            public boolean onQueryTextSubmit(String search) {
+                if (!TextUtils.isEmpty(search)) {
+                    /**
+                     * Call Search
+                     */
                     inSearch = true;
-                    callSearch(query);
-                    /*Close keyboard*/
+                    query = search;
+                    callSearch();
+                    /**
+                     * Hide keyboard
+                     */
                     searchView.clearFocus();
                 }
                 return true;
@@ -152,8 +165,8 @@ public class MainActivity extends AbstractActivity implements IResponseObject {
                 return true;
             }
 
-            public void callSearch(String query) {
-                CallApi(query);
+            public void callSearch() {
+                CallData();
             }
 
         });
@@ -178,6 +191,7 @@ public class MainActivity extends AbstractActivity implements IResponseObject {
      * Receive the data from the API
      * Based on this we can draw differents views of, empty, or whatsoever.
      */
+
     @Override
     public void onResponse(Object object) {
         rl_progressbar.setVisibility(View.GONE);
@@ -234,7 +248,9 @@ public class MainActivity extends AbstractActivity implements IResponseObject {
             @Override
             public void run() {
                 if (!TextUtils.isEmpty(query)) {
-                    CallApi(query);
+                    CallData();
+                } else {
+                    Toast.makeText(MainActivity.this, "Please add a criteria", Toast.LENGTH_SHORT).show();
                 }
                 mTimerHandler.postDelayed(this, TIMER_DELAY);
             }

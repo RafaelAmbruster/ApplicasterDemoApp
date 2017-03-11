@@ -24,12 +24,11 @@ import java.util.ArrayList;
  * History activity, this activity show the searches loaded from SQLite
  */
 
-public class HistoryActivity extends AppCompatActivity {
+public class HistoryActivity extends AbstractActivity {
 
     private RecyclerView rv_content;
     private SearchItemAdapter adapter;
     private ArrayList<TweetResponse> tweetResponses;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +44,8 @@ public class HistoryActivity extends AppCompatActivity {
      * Init visual components
      */
 
-    private void Init() {
+    @Override
+    public void Init() {
         rv_content = (RecyclerView) findViewById(R.id.rv_content);
         rv_content.setHasFixedSize(true);
         rv_content.setItemAnimator(new DefaultItemAnimator());
@@ -62,7 +62,8 @@ public class HistoryActivity extends AppCompatActivity {
      * Load Data from Database
      */
 
-    private void CallData() {
+    @Override
+    public void CallData() {
         tweetResponses = new TweetResponseDAO(AppDatabaseManager.getInstance().getHelper()).Get();
         adapter.Add(tweetResponses);
         adapter.notifyDataSetChanged();
@@ -72,7 +73,8 @@ public class HistoryActivity extends AppCompatActivity {
      * Init the search adapter
      */
 
-    private void SetupAdapter() {
+    @Override
+    public void SetupAdapter() {
         tweetResponses = new ArrayList<>();
         adapter = new SearchItemAdapter(HistoryActivity.this, (position, v) -> {
             TweetResponse resp = tweetResponses.get(position);
@@ -85,12 +87,15 @@ public class HistoryActivity extends AppCompatActivity {
      * Open tweets history activity with all the tweets stored
      */
 
-    private void OpenDetail(TweetResponse resp) {
-        Intent i = new Intent(HistoryActivity.this, HistoryTweetsActivity.class);
-        Bundle b = new Bundle();
-        b.putInt(HistoryTweetsActivity.OBJ_RESPONSE, resp.getId());
-        i.putExtras(b);
-        startActivity(i);
+    @Override
+    public void OpenDetail(Object resp) {
+        if (resp instanceof TweetResponse) {
+            Intent i = new Intent(HistoryActivity.this, HistoryTweetsActivity.class);
+            Bundle b = new Bundle();
+            b.putInt(HistoryTweetsActivity.OBJ_RESPONSE, ((TweetResponse) resp).getId());
+            i.putExtras(b);
+            startActivity(i);
+        }
     }
 
     @Override

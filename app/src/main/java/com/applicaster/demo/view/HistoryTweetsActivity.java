@@ -28,7 +28,7 @@ import java.util.ArrayList;
  * History activity, this activity show the tweets from previous searches loaded from SQLite
  */
 
-public class HistoryTweetsActivity extends AppCompatActivity {
+public class HistoryTweetsActivity extends AbstractActivity {
 
     private RecyclerView rv_content;
     private TwitterItemHistoryAdapter adapter;
@@ -60,7 +60,8 @@ public class HistoryTweetsActivity extends AppCompatActivity {
      * Init visual components
      */
 
-    private void Init() {
+    @Override
+    public void Init() {
         rv_content = (RecyclerView) findViewById(R.id.rv_content);
         rv_content.setHasFixedSize(true);
         rv_content.setItemAnimator(new DefaultItemAnimator());
@@ -73,7 +74,8 @@ public class HistoryTweetsActivity extends AppCompatActivity {
         CallData();
     }
 
-    private void CallData() {
+    @Override
+    public void CallData() {
         tweetResponse = new TweetResponseDAO(AppDatabaseManager.getInstance().getHelper()).Get(new TweetResponse(id));
         getSupportActionBar().setTitle("Hashtag " + tweetResponse.getQuery());
         ForeignCollection<TweetHistory> list = tweetResponse.getTweetHistory();
@@ -84,12 +86,17 @@ public class HistoryTweetsActivity extends AppCompatActivity {
     /**
      * Init the tweet History adapter
      */
-
-    private void SetupAdapter() {
+    @Override
+    public void SetupAdapter() {
         tweetHistory = new ArrayList<>();
         adapter = new TwitterItemHistoryAdapter(HistoryTweetsActivity.this, (position, v) -> {
         });
         rv_content.setAdapter(adapter);
+    }
+
+    @Override
+    public void OpenDetail(Object object) {
+
     }
 
     @Override

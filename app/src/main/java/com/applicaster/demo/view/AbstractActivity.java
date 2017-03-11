@@ -10,59 +10,18 @@ import java.util.List;
 
 /**
  * Created by Ambruster on 3/10/2017.
- * Abstract Activity with some of the most common used helper method, not necesary all the others
- * Activities must extend, but its a good practice
+ * Abstract Activity with some of the most common used helper method, not necessary all the others
+ * Its not mandatory that activities extend from this, but its a good practice
  */
 
-public class AbstractActivity extends AppCompatActivity {
+public abstract class AbstractActivity extends AppCompatActivity {
 
-    private final Object mLock = new Object();
-    private Boolean mReady = false;
-    private List<Runnable> mPendingCallbacks = new LinkedList<>();
+    public abstract void CallData();
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public abstract void Init();
 
-        synchronized (mLock) {
-            mReady = true;
-            int pendingCallbacks = mPendingCallbacks.size();
-            while (pendingCallbacks-- > 0) {
-                Runnable runnable = mPendingCallbacks.remove(0);
-                runNow(runnable);
-            }
-        }
+    public abstract void SetupAdapter();
 
-    }
+    public abstract void OpenDetail(Object object);
 
-    @Override
-    public void onPause() {
-        super.onPause();
-        synchronized (mLock) {
-            mReady = false;
-        }
-    }
-
-    protected void runTaskCallback(Runnable runnable) {
-        if (mReady) runNow(runnable);
-        else addPending(runnable);
-    }
-
-    protected void executeTask(AsyncTask<Void, ?, ?> task) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-            task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-        } else {
-            task.execute();
-        }
-    }
-
-    private void runNow(Runnable runnable) {
-        runOnUiThread(runnable);
-    }
-
-    private void addPending(Runnable runnable) {
-        synchronized (mLock) {
-            mPendingCallbacks.add(runnable);
-        }
-    }
 }

@@ -30,7 +30,6 @@ android {
         buildConfigField 'String', 'AUTH_END_POINT', '"https://api.twitter.com/oauth2/token"'
         buildConfigField 'String', 'CONSUMER_KEY', '"qcEeVRpZNbkzSMGFZWUbV6QqG"'
         buildConfigField 'String', 'CONSUMER_SECRET', '"QxwsXikAFrckKO91V4SdMKpH0tptQ1UCzg6b4CEK363mk6lfQ3"'
-        buildConfigField 'String', 'DEFAULT_COUNT', '"10"'
     }
 
     buildTypes {
