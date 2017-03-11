@@ -8,6 +8,7 @@ Android Build Tools v25
 
 # Getting Started
 Download or Clone the project, then import with Android Studio, then run into emulator or device.
+All keys of configuration are in the build.gradle file, eg, Secret  and consumer key to communicate with twitter API
 
 # Libraries
 ORMLite, for handle storage into SQLite Database.
