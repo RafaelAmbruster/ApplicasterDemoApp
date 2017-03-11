@@ -38,7 +38,7 @@ public class MainActivity extends AbstractActivity implements IResponseObject {
     private RecyclerView rv_content;
     private TwitterItemAdapter adapter;
     private ArrayList<Tweet> statuses;
-    private RelativeLayout rl_progressbar;
+    private RelativeLayout rv_progress, rv_empty;
     private String query;
     private Handler mTimerHandler;
     private Runnable mTimerRunnable;
@@ -75,7 +75,9 @@ public class MainActivity extends AbstractActivity implements IResponseObject {
 
         setupTimer();
 
-        rl_progressbar = (RelativeLayout) findViewById(R.id.rv_progress);
+        rv_progress = (RelativeLayout) findViewById(R.id.rv_progress);
+        rv_empty = (RelativeLayout) findViewById(R.id.rv_empty);
+
         rv_content = (RecyclerView) findViewById(R.id.rv_content);
         rv_content.setHasFixedSize(true);
         rv_content.setItemAnimator(new DefaultItemAnimator());
@@ -116,10 +118,10 @@ public class MainActivity extends AbstractActivity implements IResponseObject {
 
     @Override
     public void CallData() {
-        preference.setQuery(query);
         statuses = new ArrayList<>();
         adapter.Clear();
-        rl_progressbar.setVisibility(View.VISIBLE);
+        rv_progress.setVisibility(View.VISIBLE);
+        rv_empty.setVisibility(View.INVISIBLE);
         new TwitterTask(this).Search(query);
     }
 
@@ -141,7 +143,12 @@ public class MainActivity extends AbstractActivity implements IResponseObject {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
         SearchView searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
-        searchView.setQueryHint("Search..");
+
+        if (!query.isEmpty())
+            searchView.setQueryHint("Last search was " + query);
+        else
+            searchView.setQueryHint("Search..");
+
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String search) {
@@ -194,15 +201,20 @@ public class MainActivity extends AbstractActivity implements IResponseObject {
 
     @Override
     public void onResponse(Object object) {
-        rl_progressbar.setVisibility(View.GONE);
+        rv_progress.setVisibility(View.GONE);
         if (object instanceof Tweets) {
             statuses.addAll(((Tweets) object).getStatuses());
             sortByFavoriteTweet();
             adapter.Add(statuses);
             adapter.notifyDataSetChanged();
 
-            if (inSearch)
-                Persist(statuses, query);
+            if (statuses.size() > 0) {
+                preference.setQuery(query);
+                rv_empty.setVisibility(View.GONE);
+                if (inSearch)
+                    Persist(statuses, query);
+            } else
+                rv_empty.setVisibility(View.VISIBLE);
         }
     }
 
@@ -212,7 +224,8 @@ public class MainActivity extends AbstractActivity implements IResponseObject {
 
     @Override
     public void onError(String message, Integer code) {
-        rl_progressbar.setVisibility(View.GONE);
+        rv_progress.setVisibility(View.GONE);
+        rv_empty.setVisibility(View.VISIBLE);
         Log.e("onError", code + message);
     }
 
@@ -266,7 +279,8 @@ public class MainActivity extends AbstractActivity implements IResponseObject {
     }
 
     /**
-     * For persist the data, i create two entities, TweetHistory and TweetResponse with the data that will be persisted in SQLite
+     * For persist the data, were created two entities, TweetHistory and TweetResponse
+     * with the data that will be persisted in SQLite, only is searched, refreshing no
      */
 
     private void Persist(ArrayList<Tweet> statuses, String query) {
@@ -275,7 +289,7 @@ public class MainActivity extends AbstractActivity implements IResponseObject {
         resp.setQuery(query);
 
         /**
-         * First we create the father (TweetResponse)
+         * First create the father (TweetResponse)
          * */
 
         new TweetResponseDAO(AppDatabaseManager.getInstance().getHelper()).Create(resp, IOperationDAO.OPERATION_INSERT);
@@ -301,7 +315,7 @@ public class MainActivity extends AbstractActivity implements IResponseObject {
         }
 
         /**
-         * Then we create all the childs
+         * Then create all the childs
          */
 
         if (list_to_persist.size() > 0)

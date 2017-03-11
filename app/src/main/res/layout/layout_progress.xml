@@ -4,7 +4,7 @@
     android:layout_width="56dp"
     android:layout_height="56dp"
     android:layout_gravity="center"
-    android:background="#00ffffff"
+    android:background="@android:color/transparent"
     android:gravity="center"
     android:orientation="vertical"
     android:visibility="gone">

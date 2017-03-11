@@ -28,6 +28,11 @@ public class TweetResponse {
         this.id = id;
     }
 
+    public TweetResponse(String query, ForeignCollection<TweetHistory> tweetHistory) {
+        this.query = query;
+        this.tweetHistory = tweetHistory;
+    }
+
     public int getId() {
         return id;
     }
@@ -46,5 +51,9 @@ public class TweetResponse {
 
     public ForeignCollection<TweetHistory> getTweetHistory() {
         return tweetHistory;
+    }
+
+    public void setTweetHistory(ForeignCollection<TweetHistory> tweetHistory) {
+        this.tweetHistory = tweetHistory;
     }
 }
