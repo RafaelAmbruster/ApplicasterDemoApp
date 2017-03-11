@@ -45,6 +45,7 @@ public class MainActivity extends AbstractActivity implements IResponseObject {
     private static final long TIMER_DELAY = 20000l;
     private static Boolean inSearch;
     public PreferenceManager preference;
+    private SearchView searchView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -142,7 +143,7 @@ public class MainActivity extends AbstractActivity implements IResponseObject {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
-        SearchView searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
+        searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
 
         if (!query.isEmpty())
             searchView.setQueryHint("Last search was " + query);
@@ -201,6 +202,7 @@ public class MainActivity extends AbstractActivity implements IResponseObject {
 
     @Override
     public void onResponse(Object object) {
+        invalidateOptionsMenu();
         rv_progress.setVisibility(View.GONE);
         if (object instanceof Tweets) {
             statuses.addAll(((Tweets) object).getStatuses());

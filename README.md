@@ -8,9 +8,10 @@ Every searched text and its results is stored onto SQLite database for posterior
 All POJOs based on Twitter API response were generated with http://www.jsonschema2pojo.org
 
 # Prerequisites
-Java 8.
+Java 8
 Android SDK v25
 Android Build Tools v25
+Min SDK v17
 
 # Getting Started
 Download or Clone the project, then import with Android Studio, then run into emulator or device.
