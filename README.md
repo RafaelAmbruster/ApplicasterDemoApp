@@ -1,10 +1,11 @@
 # Applicaster Demo App
-This is a small assignment that consist in develop an android app for consuption of Twitter API.
+This is a small assignment that consist in develop an android app for consume Twitter API.
 
 # What the app do
 Basic app that connect with Twitter API and obtain 10 Tweet of the most influential people (more followers) based on a hashtag or a text,
 every 20 seconds the screen is refreshed based on the last used hashtag/text.
 Every searched text and its results is stored onto SQLite database for posterior analysis.
+All POJOs based on Twitter API response were generated with http://www.jsonschema2pojo.org
 
 # Prerequisites
 Java 8.

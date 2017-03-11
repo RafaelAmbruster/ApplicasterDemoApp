@@ -2,7 +2,7 @@ package com.applicaster.demo;
 
 import android.app.Application;
 import android.content.Context;
-import com.applicaster.demo.dao.AppDatabaseManager;
+import com.applicaster.demo.helper.AppDatabaseManager;
 
 /**
  * Created by Ambruster on 3/10/2017.

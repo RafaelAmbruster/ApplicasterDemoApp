@@ -1,6 +1,5 @@
 package com.applicaster.demo.api.task;
 
-import com.applicaster.demo.BuildConfig;
 import com.applicaster.demo.api.IResponseObject;
 import com.applicaster.demo.api.ServiceGenerator;
 import com.applicaster.demo.api.TwitterAPI;

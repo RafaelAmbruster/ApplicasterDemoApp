@@ -2,7 +2,6 @@ package com.applicaster.demo.view;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -11,11 +10,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.applicaster.demo.R;
-import com.applicaster.demo.dao.AppDatabaseManager;
+import com.applicaster.demo.helper.AppDatabaseManager;
 import com.applicaster.demo.dao.TweetResponseDAO;
 import com.applicaster.demo.model.TweetResponse;
 import com.applicaster.demo.view.adapters.SearchItemAdapter;
-import com.google.gson.Gson;
 
 import java.util.ArrayList;
 

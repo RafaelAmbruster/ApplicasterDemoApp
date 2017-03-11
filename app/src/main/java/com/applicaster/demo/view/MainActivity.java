@@ -20,7 +20,7 @@ import com.applicaster.demo.R;
 import com.applicaster.demo.api.IResponseObject;
 import com.applicaster.demo.api.task.TwitterTask;
 import com.applicaster.demo.dao.TweetHistoryDAO;
-import com.applicaster.demo.dao.AppDatabaseManager;
+import com.applicaster.demo.helper.AppDatabaseManager;
 import com.applicaster.demo.dao.IOperationDAO;
 import com.applicaster.demo.dao.TweetResponseDAO;
 import com.applicaster.demo.helper.PreferenceManager;

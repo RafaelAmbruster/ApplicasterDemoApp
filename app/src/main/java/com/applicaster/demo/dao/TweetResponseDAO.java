@@ -2,6 +2,7 @@ package com.applicaster.demo.dao;
 
 import android.util.Log;
 
+import com.applicaster.demo.helper.AppDatabaseHelper;
 import com.applicaster.demo.model.TweetResponse;
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.dao.DaoManager;
