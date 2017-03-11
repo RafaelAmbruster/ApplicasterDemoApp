@@ -6,6 +6,6 @@ Download or Clone the project, then import with Android Studio, then run into em
 It's necesary that you have Java 8.
 
 Libraries that were used:
-ORMLite, for handle storage into SQLite Database.
+ORMLite, for handle storage with SQLite Database.
 Retrofit, for handle network consuption.
-Piccaso, for handle image download.
+Piccaso, for handle image downloading.
