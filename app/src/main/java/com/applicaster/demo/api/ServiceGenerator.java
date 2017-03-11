@@ -19,6 +19,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * Created by Ambruster on 3/9/2017.
+ * Service Generator for retrofit
  */
 
 public class ServiceGenerator {
@@ -69,6 +70,10 @@ public class ServiceGenerator {
         return retrofit.create(serviceClass);
     }
 
+
+    /**
+     * Obtain the token, following OAuth specification
+     **/
     private static Request getToken() {
         final String credential = Credentials.basic(BuildConfig.CONSUMER_KEY, BuildConfig.CONSUMER_SECRET);
         RequestBody requestBody = RequestBody.create(MediaType.parse("application/x-www-form-urlencoded; charset=UTF-8"), "grant_type=client_credentials");

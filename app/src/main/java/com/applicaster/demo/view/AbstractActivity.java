@@ -10,6 +10,8 @@ import java.util.List;
 
 /**
  * Created by Ambruster on 3/10/2017.
+ * Abstract Activity with some of the most common used helper method, not necesary all the others
+ * Activities must extend, but its a good practice
  */
 
 public class AbstractActivity extends AppCompatActivity {

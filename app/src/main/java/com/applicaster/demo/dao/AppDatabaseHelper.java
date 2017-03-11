@@ -14,6 +14,7 @@ import java.sql.SQLException;
 
 /**
  * Created by Ambruster on 3/10/2017.
+ * Helper class for life cycle of database, eg: Database name, version etc.
  */
 
 public class AppDatabaseHelper extends OrmLiteSqliteOpenHelper {

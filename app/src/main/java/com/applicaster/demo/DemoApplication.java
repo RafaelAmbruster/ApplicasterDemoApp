@@ -6,6 +6,7 @@ import com.applicaster.demo.dao.AppDatabaseManager;
 
 /**
  * Created by Ambruster on 3/10/2017.
+ * Application class
  */
 
 public class DemoApplication extends Application {

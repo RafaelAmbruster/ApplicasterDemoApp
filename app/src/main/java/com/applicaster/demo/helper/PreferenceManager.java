@@ -5,9 +5,10 @@ import android.content.SharedPreferences;
 
 /**
  * Created by Ambruster on 3/10/2017.
+ * Helper class for work with shared preferences, all the elements that are stored/retrieved from shared preference
  */
 
-/*Helper class for work with shared preferences*/
+
 public class PreferenceManager {
     SharedPreferences pref;
     SharedPreferences.Editor editor;

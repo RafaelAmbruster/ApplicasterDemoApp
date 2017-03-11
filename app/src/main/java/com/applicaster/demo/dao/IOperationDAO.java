@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 /**
  * Created by Ambruster on 3/10/2017.
+ * Helper interface, all dao must implements
  */
 
 public interface IOperationDAO<T> {

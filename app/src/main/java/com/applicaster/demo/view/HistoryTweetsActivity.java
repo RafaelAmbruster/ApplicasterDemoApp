@@ -23,6 +23,11 @@ import com.j256.ormlite.dao.ForeignCollection;
 
 import java.util.ArrayList;
 
+/**
+ * Created by Ambruster on 3/10/2017.
+ * History activity, this activity show the tweets from previous searches loaded from SQLite
+ */
+
 public class HistoryTweetsActivity extends AppCompatActivity {
 
     private RecyclerView rv_content;
@@ -51,7 +56,10 @@ public class HistoryTweetsActivity extends AppCompatActivity {
         Init();
     }
 
-    /*Init visual components*/
+    /**
+     * Init visual components
+     */
+
     private void Init() {
         rv_content = (RecyclerView) findViewById(R.id.rv_content);
         rv_content.setHasFixedSize(true);
@@ -73,7 +81,10 @@ public class HistoryTweetsActivity extends AppCompatActivity {
         adapter.notifyDataSetChanged();
     }
 
-    /*Init the search adapter*/
+    /**
+     * Init the tweet History adapter
+     */
+
     private void SetupAdapter() {
         tweetHistory = new ArrayList<>();
         adapter = new TwitterItemHistoryAdapter(HistoryTweetsActivity.this, (position, v) -> {

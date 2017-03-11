@@ -16,6 +16,7 @@ import java.util.List;
 
 /**
  * Created by Ambruster on 3/10/2017.
+ * Adapter class for searched elements
  */
 
 public class SearchItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {

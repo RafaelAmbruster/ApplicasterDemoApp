@@ -12,9 +12,9 @@ import retrofit2.Response;
 
 /**
  * Created by Ambruster on 3/9/2017.
+ * Helper class for make the call to the API
  */
 
-/*Helper class for make the call to the API*/
 public class TwitterTask {
 
     TwitterAPI api = null;
@@ -25,10 +25,17 @@ public class TwitterTask {
     }
 
     public void Search(String hashtag) {
-        /*Get the API instance*/
+
+        /**
+        *Get the API instance
+        */
+
         api = ServiceGenerator.createService(TwitterAPI.class);
 
-         /*Call the service*/
+         /**
+         *Call the service
+         */
+
         Call<Tweets> call = api.searchTweets(hashtag, BuildConfig.DEFAULT_COUNT, "true", "popular");
         call.enqueue(new Callback<Tweets>() {
             @Override

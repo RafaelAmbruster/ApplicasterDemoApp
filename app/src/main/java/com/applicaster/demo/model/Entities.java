@@ -6,7 +6,10 @@ import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-/*This POJO was generated whit http://www.jsonschema2pojo.org/*/
+/**
+ *This POJO was generated whit http://www.jsonschema2pojo.org/
+ * */
+
 public class Entities {
 
     @SerializedName("hashtags")

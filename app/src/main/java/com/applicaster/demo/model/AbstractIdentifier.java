@@ -4,6 +4,7 @@ import com.j256.ormlite.field.DatabaseField;
 
 /**
  * Created by Ambruster on 3/10/2017.
+ * All the models that are stored in SQLite and had a long Id must extend from this
  */
 
 public class AbstractIdentifier {

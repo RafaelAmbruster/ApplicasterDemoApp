@@ -18,6 +18,7 @@ import java.util.List;
 
 /**
  * Created by Ambruster on 3/10/2017.
+ * Adapter class for tweets in history elements
  */
 
 public class TwitterItemHistoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {

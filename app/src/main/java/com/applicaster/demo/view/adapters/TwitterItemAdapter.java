@@ -18,6 +18,7 @@ import java.util.List;
 
 /**
  * Created by Ambruster on 3/10/2017.
+ * Adapter class for tweets elements
  */
 
 public class TwitterItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {

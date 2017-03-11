@@ -5,7 +5,10 @@ import com.google.gson.annotations.SerializedName;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
-/*This POJO was generated whit http://www.jsonschema2pojo.org/*/
+/**
+ *This POJO was generated whit http://www.jsonschema2pojo.org/
+ * */
+
 @DatabaseTable(tableName = "User")
 public class User extends AbstractIdentifier{
 

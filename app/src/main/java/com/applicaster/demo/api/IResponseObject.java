@@ -2,9 +2,9 @@ package com.applicaster.demo.api;
 
 /**
  * Created by Ambruster on 3/9/2017.
+ * Helper interface for handle call services events
  */
 
-/*Helper library for handle events*/
 public interface IResponseObject<T> {
 
     void onResponse(T object);

@@ -61,10 +61,16 @@ public class MainActivity extends AbstractActivity implements IResponseObject {
         inSearch = false;
     }
 
-    /*Init visual components*/
+    /**
+     * Init visual components
+     */
+
     private void Init() {
 
-        /*Start the timer*/
+        /**
+         * Start the timer
+         */
+
         setupTimer();
 
         rl_progressbar = (RelativeLayout) findViewById(R.id.rv_progress);
@@ -78,21 +84,28 @@ public class MainActivity extends AbstractActivity implements IResponseObject {
         SetupAdapter();
     }
 
-    /*Init the tweet adapter*/
+    /**
+     * Init the tweet adapter
+     */
+
     private void SetupAdapter() {
         statuses = new ArrayList<>();
         adapter = new TwitterItemAdapter(MainActivity.this, (position, v) -> {
 
-            /*If we are going to see the tweet detail, we implement this method
-            * Tweet status = statuses.get(adapter.getPosition(position));
-            * OpenDetail(status);
+            /**
+             *If we are going to see the tweet detail, we implement this method
+             *Tweet status = statuses.get(adapter.getPosition(position));
+             *OpenDetail(status);
             */
 
         });
         rv_content.setAdapter(adapter);
     }
 
-    /*Helper method to communicate with the API*/
+    /**
+     * Helper method to communicate with the API
+     */
+
     private void CallApi(String search) {
         query = search;
         preference.setQuery(search);
@@ -102,12 +115,19 @@ public class MainActivity extends AbstractActivity implements IResponseObject {
         new TwitterTask(this).Search(search);
     }
 
-    /*Helper method to order the response based on user followers*/
+    /**
+     * Helper method to order the response based on user followers
+     */
+
     private void sortByFavoriteTweet() {
         if (statuses != null && statuses.size() > 0) {
             Collections.sort(statuses);
         }
     }
+
+    /**
+     * Create the search view
+     */
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -154,7 +174,10 @@ public class MainActivity extends AbstractActivity implements IResponseObject {
         }
     }
 
-    /*Receive the data from the API*/
+    /**
+     * Receive the data from the API
+     * Based on this we can draw differents views of, empty, or whatsoever.
+     */
     @Override
     public void onResponse(Object object) {
         rl_progressbar.setVisibility(View.GONE);
@@ -169,7 +192,10 @@ public class MainActivity extends AbstractActivity implements IResponseObject {
         }
     }
 
-    /*In more complex scenario, we must handle the error*/
+    /**
+     * In more complex scenario, we must handle the error
+     */
+
     @Override
     public void onError(String message, Integer code) {
         rl_progressbar.setVisibility(View.GONE);
@@ -179,7 +205,6 @@ public class MainActivity extends AbstractActivity implements IResponseObject {
     @Override
     protected void onResume() {
         super.onResume();
-        /*Start the timer*/
         startTimer();
         invalidateOptionsMenu();
     }
@@ -191,9 +216,17 @@ public class MainActivity extends AbstractActivity implements IResponseObject {
         stopTimer();
     }
 
+    /**
+     * Helper method to start the handler
+     */
+
     private void startTimer() {
         mTimerHandler.postDelayed(mTimerRunnable, 0);
     }
+
+    /**
+     * Helper method to initialize the handler
+     */
 
     private void setupTimer() {
         mTimerHandler = new Handler();
@@ -208,16 +241,26 @@ public class MainActivity extends AbstractActivity implements IResponseObject {
         };
     }
 
+    /**
+     * Helper method to stop the handler
+     */
+
     private void stopTimer() {
         mTimerHandler.removeCallbacks(mTimerRunnable);
     }
 
-    /*For persist the data, i create two entities, TweetHistory and TweetResponse with the data that will be persisted in SQLite*/
+    /**
+     * For persist the data, i create two entities, TweetHistory and TweetResponse with the data that will be persisted in SQLite
+     */
+
     private void Persist(ArrayList<Tweet> statuses, String query) {
         inSearch = false;
         TweetResponse resp = new TweetResponse();
         resp.setQuery(query);
-        /*First we create the father (TweetResponse)*/
+
+        /**
+         * First we create the father (TweetResponse)
+         * */
 
         new TweetResponseDAO(AppDatabaseManager.getInstance().getHelper()).Create(resp, IOperationDAO.OPERATION_INSERT);
         TweetHistory tweetHistory;
@@ -241,7 +284,10 @@ public class MainActivity extends AbstractActivity implements IResponseObject {
             list_to_persist.add(tweetHistory);
         }
 
-        /*Then we create all the childs*/
+        /**
+         * Then we create all the childs
+         */
+
         if (list_to_persist.size() > 0)
             new TweetHistoryDAO(AppDatabaseManager.getInstance().getHelper()).Create(list_to_persist, IOperationDAO.OPERATION_INSERT);
 

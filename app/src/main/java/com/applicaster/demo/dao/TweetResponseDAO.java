@@ -11,6 +11,7 @@ import java.util.ArrayList;
 
 /**
  * Created by Ambruster on 3/10/2017.
+ * Dao of the model class Response that is stored in SQLite
  */
 
 public class TweetResponseDAO extends AbstractDAO<TweetResponse, Long> implements
