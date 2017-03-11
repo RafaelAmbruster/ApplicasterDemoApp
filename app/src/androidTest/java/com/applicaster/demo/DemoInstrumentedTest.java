@@ -106,7 +106,7 @@ public class DemoInstrumentedTest {
             assertEquals("This a test", history.getText());
             assertTrue(iterator.hasNext());
             history = iterator.next();
-            assertEquals("This a test number 4", history.getText());
+            assertEquals("This a test number 2", history.getText());
             assertFalse(iterator.hasNext());
         } finally {
             iterator.close();
