@@ -14,6 +14,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.applicaster.demo.R;
@@ -44,8 +45,9 @@ public class MainActivity extends AbstractActivity implements IResponseObject {
     private Runnable mTimerRunnable;
     private static final long TIMER_DELAY = 20000l;
     private static Boolean inSearch;
-    public PreferenceManager preference;
+    private PreferenceManager preference;
     private SearchView searchView;
+    private TextView tv_message;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +55,8 @@ public class MainActivity extends AbstractActivity implements IResponseObject {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        query = "";
 
         preference = new PreferenceManager(this);
         if (!preference.getQuery().contains(PreferenceManager.STRING_NF)) {
@@ -70,14 +74,9 @@ public class MainActivity extends AbstractActivity implements IResponseObject {
     @Override
     public void Init() {
 
-        /**
-         * Start the timer
-         */
-
-        setupTimer();
-
         rv_progress = (RelativeLayout) findViewById(R.id.rv_progress);
         rv_empty = (RelativeLayout) findViewById(R.id.rv_empty);
+        tv_message = (TextView) findViewById(R.id.tv_message);
 
         rv_content = (RecyclerView) findViewById(R.id.rv_content);
         rv_content.setHasFixedSize(true);
@@ -87,6 +86,17 @@ public class MainActivity extends AbstractActivity implements IResponseObject {
         mLinearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         rv_content.setLayoutManager(mLinearLayoutManager);
         SetupAdapter();
+
+        if (!preference.isFound()) {
+            rv_empty.setVisibility(View.VISIBLE);
+            Toast.makeText(MainActivity.this, "Please add a hashtag", Toast.LENGTH_LONG).show();
+        }
+
+        /**
+         * Start the timer
+         */
+
+        setupTimer();
     }
 
     /**
@@ -148,7 +158,7 @@ public class MainActivity extends AbstractActivity implements IResponseObject {
         if (!query.isEmpty())
             searchView.setQueryHint("Last search was " + query);
         else
-            searchView.setQueryHint("Search..");
+            searchView.setQueryHint("#hashtag");
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -202,6 +212,7 @@ public class MainActivity extends AbstractActivity implements IResponseObject {
 
     @Override
     public void onResponse(Object object) {
+
         invalidateOptionsMenu();
         rv_progress.setVisibility(View.GONE);
         if (object instanceof Tweets) {
@@ -212,11 +223,17 @@ public class MainActivity extends AbstractActivity implements IResponseObject {
 
             if (statuses.size() > 0) {
                 preference.setQuery(query);
+                preference.setFound(true);
                 rv_empty.setVisibility(View.GONE);
+
                 if (inSearch)
                     Persist(statuses, query);
-            } else
+
+            } else {
+                preference.setFound(false);
                 rv_empty.setVisibility(View.VISIBLE);
+                tv_message.setText(R.string.empty_message);
+            }
         }
     }
 
@@ -262,11 +279,12 @@ public class MainActivity extends AbstractActivity implements IResponseObject {
         mTimerRunnable = new Runnable() {
             @Override
             public void run() {
-                if (!TextUtils.isEmpty(query)) {
-                    CallData();
-                } else {
-                    Toast.makeText(MainActivity.this, "Please add a criteria", Toast.LENGTH_SHORT).show();
-                }
+                if (preference.isFound())
+                    if (!TextUtils.isEmpty(query)) {
+                        CallData();
+                    } else {
+                        rv_empty.setVisibility(View.VISIBLE);
+                    }
                 mTimerHandler.postDelayed(this, TIMER_DELAY);
             }
         };

@@ -19,6 +19,7 @@ public class PreferenceManager {
     private static final String CONSUME_INTERVAL = "interval";
     private static final String QUERY_STRING = "query";
     public static final String STRING_NF = "defaultStringIfNothingFound";
+    private static final String QUERY_FOUND = "found";
 
     public PreferenceManager(Context context) {
         this.context = context;
@@ -33,6 +34,15 @@ public class PreferenceManager {
 
     public String getQuery() {
         return pref.getString(QUERY_STRING, STRING_NF);
+    }
+
+    public void setFound(Boolean found) {
+        editor.putBoolean(QUERY_FOUND, found);
+        editor.commit();
+    }
+
+    public Boolean isFound() {
+        return pref.getBoolean(QUERY_FOUND, false);
     }
 
     public void setInterval(int interval) {

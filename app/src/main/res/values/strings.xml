@@ -2,4 +2,5 @@
     <string name="app_name">Applicaster Demo</string>
     <string name="action_settings">Settings</string>
     <string name="hitory">SEARCH HISTORY</string>
+    <string name="empty_message">Sorry, we didn\'t find any results matching this search</string>
 </resources>
