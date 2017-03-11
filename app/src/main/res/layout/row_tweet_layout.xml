@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:clickable="true"
+    android:orientation="vertical"
+    android:paddingBottom="4dp"
+    android:paddingLeft="2dp"
+    android:paddingRight="2dp"
+    android:paddingTop="2dp">
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/cv_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="4dp"
+        android:elevation="1dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:id="@+id/container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="8dp">
+
+                <ImageView
+                    android:id="@+id/iv_profile_pic"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:src="@mipmap/ic_launcher" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_toEndOf="@+id/iv_profile_pic">
+
+                    <TextView
+                        android:id="@+id/tv_search_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="8dp"
+                        android:layout_toEndOf="@id/iv_profile_pic"
+                        android:autoLink="web"
+                        android:ellipsize="end"
+                        android:gravity="start|center_vertical" />
+
+                    <TextView
+                        android:id="@+id/tv_search_user"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="8dp"
+                        android:layout_toEndOf="@id/iv_profile_pic"
+                        android:autoLink="web"
+                        android:ellipsize="end"
+                        android:gravity="start|center_vertical"
+                        android:maxLines="1" />
+
+                    <TextView
+                        android:id="@+id/tv_search_followers"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="8dp"
+                        android:layout_toEndOf="@id/iv_profile_pic"
+                        android:autoLink="web"
+                        android:ellipsize="end"
+                        android:gravity="start|center_vertical"
+                        android:maxLines="1"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+
+            </RelativeLayout>
+
+
+            <ImageView
+                android:id="@+id/iv_media_pic"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/white"
+                android:scaleType="fitXY"
+                android:visibility="gone" />
+
+        </LinearLayout>
+
+    </android.support.v7.widget.CardView>
+</LinearLayout>
