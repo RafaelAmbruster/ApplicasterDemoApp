@@ -67,7 +67,7 @@ public class HistoryTweetsActivity extends AppCompatActivity {
 
     private void CallData() {
         tweetResponse = new TweetResponseDAO(AppDatabaseManager.getInstance().getHelper()).Get(new TweetResponse(id));
-        getSupportActionBar().setTitle("Tweets with hashtag " + tweetResponse.getQuery());
+        getSupportActionBar().setTitle("Hashtag " + tweetResponse.getQuery());
         ForeignCollection<TweetHistory> list = tweetResponse.getTweetHistory();
         adapter.Add(new ArrayList<>(list));
         adapter.notifyDataSetChanged();
